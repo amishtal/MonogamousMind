@@ -8,6 +8,7 @@ import numpy as np
 import scipy
 from scipy.stats import nbinom
 
+import h5py
 
 from deap import base, creator, tools
 
@@ -245,6 +246,7 @@ def main():
 
     # Initialize population.
     pop = toolbox.population(n=50)
+    records = []
 
     # Evaluate population.
     #pop = toolbox.evaluate(pop)
@@ -254,6 +256,7 @@ def main():
         print '-- Generation {} --'.format(g)
         pop = toolbox.evaluate(pop)
         record = mstats.compile(pop)
+        records.append(record)
         pp.pprint(record)
         fitnesses = [ind.fitness.wsum() for ind in pop]
         intels   = [ind.get_intelligence() for ind in pop]
@@ -278,6 +281,10 @@ def main():
 
         #offspring = toolbox.evaluate(offspring)
         pop[:] = offspring
+
+        save_file = h5py.File('results.h5', 'w')
+        mm_base.dictToHDFS(records, save_file)
+        save_file.close()
 
 if __name__ == '__main__':
     main()
