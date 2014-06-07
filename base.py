@@ -169,7 +169,6 @@ def dictToHDFS(ds, save_file):
             return v
 
     for (path, shape) in zip(dset_paths, dset_shapes):
-        print [get_nested_values(d, path, shape) for d in ds]
         x = save_file.create_dataset(str(path), shape)#, data=[get_nested_values(d, path) for d in ds])
         x[...] = [get_nested_values(d, path, shape) for d in ds]
 
