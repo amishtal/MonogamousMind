@@ -155,8 +155,8 @@ def dictToHDFS(ds, save_file):
 
     process_dict(ds[0], Path())
 
-    print dset_paths
-    print dset_shapes
+    #print dset_paths
+    #print dset_shapes
 
     def get_nested_values(d, keys, shape):
         v = d
